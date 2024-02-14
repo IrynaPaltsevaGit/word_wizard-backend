@@ -10,8 +10,8 @@ app.use(cors());
 
 // getting all the word cards for the user
 router.get("/", authMiddleware, async (req, res) => {
-    try {
-      const data = await (await knex("words"))
+     try {
+      const data = await knex("words")
         .select(
           "words.id",
           "words.word",
@@ -19,12 +19,15 @@ router.get("/", authMiddleware, async (req, res) => {
           "words.progress",
           "words.notes"
         )
-        .where({ id: req.userObj.id}).first()
-        .join("users", "words.user_id", "=", "users.id");
+        .join("users", "words.user_id", "users.id")
+        .where({ 'users.id': req.userObj.id});
+        
         res.status(200).json(data);
       
     } catch  (error) {
-      res.status(400).send("Error retrieving inventory data", error);
+      console.log(error)
+      res.status(400).json(error);
+      
     }
   });
 
@@ -41,12 +44,12 @@ router.post("/new", async (req, res) => {
     }    
     try {
       const [newWordId] = await knex("words").insert({
-        user_id,
+        user_id: req.userObj.id,
         word,
         translation,
         notes
       })
-      .join("users", "words.user_id", "=", "users.id");;
+      //.join("users", "words.user_id", "=", req.userObj.id);;
 
       console.log(newWordId);
 
