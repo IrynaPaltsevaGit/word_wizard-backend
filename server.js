@@ -13,9 +13,9 @@ app.use(express.json());
 
 
 app.use("/auth", authRoutes);
-app.use("/users", authMiddleware, usersRoutes);
+//app.use("/users", authMiddleware, usersRoutes);
 app.use("/vocabulary", vocabularyRoutes);
-app.use("/trainings", trainingsRoutes);
+//app.use("/trainings", trainingsRoutes);
 
 
 
