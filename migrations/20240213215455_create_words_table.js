@@ -13,7 +13,7 @@ exports.up = function(knex) {
             .onDelete('CASCADE');            
         table.string('word').notNullable();
         table.string('translation').notNullable();
-        table.integer('progress');
+        table.integer('progress').defaultTo(0);
         table.string('notes');
         table.date('date');
         table.timestamp('created_at').defaultTo(knex.fn.now());
