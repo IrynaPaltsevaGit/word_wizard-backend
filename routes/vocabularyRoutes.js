@@ -32,7 +32,7 @@ router.get("/", authMiddleware, async (req, res) => {
   });
 
 // POST route to create a new word card
-router.post("/new", async (req, res) => {
+router.post("/new", authMiddleware, async (req, res) => {
     const { user_id, word, translation, notes } = req.body;  
     if (
         !word ||
@@ -43,6 +43,7 @@ router.post("/new", async (req, res) => {
         .json({ error: "Some fields are empty" });
     }    
     try {
+      console.log(req.userObj)
       const [newWordId] = await knex("words").insert({
         user_id: req.userObj.id,
         word,
@@ -59,7 +60,7 @@ router.post("/new", async (req, res) => {
   
       res.status(201).send(newWord);
     } catch (error) {
-      res.status(400).send({ error: "Failed to create a new word card." });
+      res.status(400).send({ error: "Failed to create a new word card. ", sysError: error });
     }
   });
 
