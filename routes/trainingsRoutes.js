@@ -11,6 +11,8 @@ app.use(cors());
 
 // getting 10 the word cards for the user
 router.get("/", authMiddleware, async (req, res) => {
+    const limit = req.query.limit ?? 10;
+    console.log(limit)
     try {
      const data = await knex("words")
        .select(
@@ -22,7 +24,7 @@ router.get("/", authMiddleware, async (req, res) => {
        .join("users", "words.user_id", "users.id")
        .where({ 'users.id': req.userObj.id})
        .orderBy("words.progress", "asc")
-       .limit(10);
+       .limit(limit);
        
        res.status(200).json(data);
      
