@@ -77,4 +77,20 @@ router.post("/new", authMiddleware, async (req, res) => {
     }
   });
 
+
+  // DELETE wordcard from vocabulary
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const word = await knex("words").where("id", id).del();
+    if (!word) {
+      return res.status(404).send({ error: "Wordcard not found" });
+    }      
+    res.status(204).send('success');
+  } catch (error) {
+    console.error({error: "Failed to delete wordcard"});
+    res.status(400).send({ error: "Failed to delete wordcard", details: error.message });
+  }
+});
+
   module.exports = router;
