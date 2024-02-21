@@ -30,9 +30,10 @@ router.get("/", authMiddleware, async (req, res) => {
         .limit(limit)
         .offset(offset);
       
+      // get total words amount
       const response = await knex("words")
         .join("users", "words.user_id", "users.id")
-        .where({ 'users.id': req.userObj.id})
+        .where({ 'users.id': req.userObj.id })
         .count();
         
         res.status(200).json({words, wordsAmount: response[0]['count(*)']});
