@@ -26,8 +26,6 @@ router.post("/signup", async (req, res) => {
     }
 });
 
-
-
 router.post("/login", async (req, res) => {
     // get credentials from the req.body
     const {username, password} = req.body;
@@ -61,7 +59,44 @@ router.post("/login", async (req, res) => {
 
     res.status(200).json({
         access_token: token,
+        user
     });
 });
+
+router.get("/profile",
+    // middleware function
+    (req, res, next) => {
+      // get the token from the Authorization header
+      const { authorization } = req.headers;
+  
+      if (!authorization) {
+        return res.status(401).json({ message: 'Unauthorized' });
+      }
+      // format: 'Bearer eyJhbG...ocLIs'
+      const token = authorization.slice("Bearer ".length);
+  
+      // verify the token
+      jwt.verify(token, process.env.SECRET_KEY, (err, payload) => {
+        console.log(payload)
+        if (err) {
+          // token verification failed: forbidden
+          return res.status(401).json({ error: "failed" });
+        } else {
+          // token verification succeeded: allow access
+          // make the token payload available to following handlers
+          req.payload = payload;
+          next();
+        }
+      });
+    },
+    // route handler
+    (req, res) => {
+      res.json(req.payload);
+      console.log(req.payload)
+      // setTimeout(() => {
+      //   res.json(req.payload);
+      // }, 20000);
+    }
+  );
 
 module.exports = router;
