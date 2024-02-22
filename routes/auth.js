@@ -29,7 +29,8 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
     // get credentials from the req.body
     const {username, password} = req.body;
-    console.log(req.body)
+    console.log(username, password)
+
     // find the user by username 
     const user = await knex("users")
         .where({ email: username })

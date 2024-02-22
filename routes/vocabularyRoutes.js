@@ -60,8 +60,8 @@ router.post("/new", authMiddleware, async (req, res) => {
       console.log(req.userObj)
       const [newWordId] = await knex("words").insert({
         user_id: req.userObj.id,
-        word,
-        translation,
+        word: word.toLowerCase(),
+        translation: translation.toLowerCase(),
         notes
       })
       //.join("users", "words.user_id", "=", req.userObj.id);;
