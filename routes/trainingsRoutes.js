@@ -9,7 +9,7 @@ require("dotenv").config();
 
 app.use(cors());
 
-// getting 10 the word cards for the user
+// getting 10 word cards for the user
 router.get("/", authMiddleware, async (req, res) => {
     const limit = req.query.limit ?? 10;
     console.log(limit)
@@ -34,31 +34,6 @@ router.get("/", authMiddleware, async (req, res) => {
      
    }
  });
-
- // getting all the word cards for the user with progress < 20
-router.get("/rating", authMiddleware, async (req, res) => {
-  try {    
-    const data = await knex("words")
-     .select(
-       "words.id",
-       "words.word",
-       "words.translation",
-       "words.progress"
-     )
-     .join("users", "words.user_id", "users.id")
-     .where({ 'users.id': req.userObj.id})
-     .andWhere('words.progress', '<', 20)
-     .orderBy("words.progress", "asc")
-   
-     
-     res.status(200).json(data);
-   
- } catch  (error) {
-   console.log(error)
-   res.status(400).json(error);
-   
- }
-});
 
  //update progress after training done
 

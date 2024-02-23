@@ -8,7 +8,7 @@ require("dotenv").config();
 
 app.use(cors());
 
-// getting all the word cards for the user
+// getting all the word cards for the user with progress < 20
 router.get("/", authMiddleware, async (req, res) => {
     const {limit, page} = req.query;
     const offset = page * limit - limit;
@@ -26,6 +26,7 @@ router.get("/", authMiddleware, async (req, res) => {
         )
         .join("users", "words.user_id", "users.id")
         .where({ 'users.id': req.userObj.id})
+        .andWhere('words.progress', '<', 20)
         .orderBy(["words.progress", "words.created_at"], "asc")
         .limit(limit)
         .offset(offset);
