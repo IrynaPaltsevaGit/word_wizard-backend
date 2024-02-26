@@ -16,27 +16,6 @@ A significant number of Ukrainians arriving in Canada lack English proficiency, 
   - Those aiming to expand their English vocabulary in a targeted manner
   - Users seeking an intuitive and visually appealing learning experience
 
-## Features
-
-- As a user, I want to be able to create an account to manage my vocabulary flashcards
-- As a user, I want to be able to login to my account to manage my vocabulary flashcards
-
-- As a logged in user, I want to be able to add a word in English and see its translation into Ukrainian
-- As a logged in user, I want to be able to see the list of all my vocabulary flashcards
-- As a logged in user, I want to be able to see progress visualization for each flashcard
-- As a logged in user, I want to be able to write a note for each fleashcard 
-- As a logged in user, I want to be able to create and delete vocabulary flashcards
-
-
-- As a logged in user, I want to be able to systematically practice flashcards for more effective memorization and  improvement of vocabulary and to have access to such types of trainings:
-
-    - Word : translation (review cards and track progress using 'I know'/'I don't know' buttons)
-    - Translation : word (review cards and track progress using 'I know'/'I don't know' buttons)
-    - Guess the right transtalion from 5 different variants (ENG - UA)
-    - Guess the right word from 5 different variants (UA - ENG)
-    - Find the correct spelling of the word by arranging letters in the correct order
- 
-
 ## Implementation
 
 ### Tech Stack
@@ -45,11 +24,7 @@ A significant number of Ukrainians arriving in Canada lack English proficiency, 
 - MySQL
 - Express
 - SASS
-- Client libraries: 
-    - react
-    - react-router
-    - axios
-    - dotenv
+  
 - Server libraries:
     - knex
     - express
@@ -59,58 +34,7 @@ A significant number of Ukrainians arriving in Canada lack English proficiency, 
     - mysql2
 
 ### APIs
-
 - An external Google API used to translate words from English to Ukrainian
-
-### Sitemap
-
-- Home page
-- Add new word page
-- My vocabulary
-- Trainings menu page
-  - Guessing game (ENG-UA)
-  - Guessing game (UA-ENG)
-  - Spelling training
-  - Check your knowledge (ENG-UA)
-  - Check your knowledge (UA-ENG)
-- Register
-- Login
-
-### Mockups
-
-#### Home Page
-![](home.png)
-
-#### Register Page
-![](register.png)
-
-#### Login Page
-![](login.png)
-
-#### Add new word page
-![](add.png)
-
-#### Vocabulary Page
-![](vocabulary.png)
-
-#### Trainings Page
-![](trainings.png)
-
-#### Guessing game (ENG-UA) Page
-![](guessENG-UA.png)
-
-#### Guessing game (UA-ENG) Page
-![](guessUA-ENG.png)
-
-#### Spelling training Page
-![](spelling.png)
-
-#### Check your knowledge (ENG-UA) Page
-![](checkENG.png)
-
-#### Check your knowledge (UA-ENG) Page
-![](checkUA.png)
-
 
 ### Data
 
@@ -301,9 +225,6 @@ Response:
 
 ## Roadmap
 
-- Create client
-    - react project with routes and boilerplate pages
-
 - Create server
     - express project with routing, with placeholder 200 responses
 
@@ -313,49 +234,14 @@ Response:
 
 - Deploy client and server projects so all commits will be reflected in production
 
-- Feature: Home page
-
-- Feature: Header with navigation
-
-- Feature: Add new word page
-    - Implement add new word page including form
+  -Features:
     - Create POST /vocabulary/new endpoint 
-
-- Feature: Vocabulary
-    - Implement vocabulary page
-    - Display all the created word cards for selected user
     - Add rating system, calculated for user automatically
     - Create GET /vocabulary endpoint
-
-- Feature: Delete word ability
-    - Create a button for deleting each word
     - Create DELETE /vocabulary/:id endpoint
-
-- Feature: Trainings page
-    -Implement trainings page
-
-- Feature: Guessing game page
-    - Implement guessing game form
     - Create GET /trainings endpoint
-    - Fetch no more than 40 words using GET /trainings endpoint and rating system
-
-- Feature: Check your knowledge page
-    - Add word flashcards with the ability to see translation
-    - Fetch no more than 10 words using GET /trainings endpoint and rating system
-
-- Feature: Spelling training page
-    - Implement form with clickable letters;
-    - Add checking in the spelling is correct
-    - Add possibility to check I give up and implement showing spelled word
-    - Fetch no more than 10 words using GET /trainings endpoint and rating system
-
-- Feature: Login
-    - Implement login page + form
-    - Create POST /auth/login endpoint
+    - Fetch no more than limit(sent by user) words using GET /trainings endpoint and rating system
     - Create POST /auth/profile endpoint to check if user is loged in
-
-- Feature: Signup
-    - Implement signup page + form
     - Create POST /auth/signup endpoint
 
 - Feature: Implement JWT tokens
@@ -367,9 +253,6 @@ Response:
 - DEMO DAY
 
 ## Nice-to-haves
-
-- Sorting word cards by alphabet or/and date
 - Forgot password functionality
 - Ability to edit translation
-- Ability to add several translations to one word
-- Ability to switch between translations (ENG-UA => UA-ENG)
+
