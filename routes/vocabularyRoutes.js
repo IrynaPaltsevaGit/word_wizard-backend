@@ -45,6 +45,24 @@ router.get("/", authMiddleware, async (req, res) => {
     }
 });
 
+router.get("/count", authMiddleware, async (req, res) => {
+  try {
+    // get total words amount
+    const response = await knex("words")
+      .join("users", "words.user_id", "users.id")
+      .where({ 'users.id': req.userObj.id })
+      .andWhere('progress', '<', 20)
+      .count();
+      
+      res.status(200).json({count: response[0]['count(*)']});
+    
+  } catch  (error) {
+    console.log(error)
+    res.status(400).json(error);
+    
+  }
+});
+
 // POST route to create a new word card
 router.post("/new", authMiddleware, async (req, res) => {
     const { user_id, word, translation, notes } = req.body;  

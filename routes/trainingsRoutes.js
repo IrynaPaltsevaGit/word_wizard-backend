@@ -22,6 +22,7 @@ router.get("/", authMiddleware, async (req, res) => {
        )
        .join("users", "words.user_id", "users.id")
        .where({ 'users.id': req.userObj.id})
+       .andWhere('progress', '<', 20)
        .orderBy("words.progress", "asc")
        .limit(limit);
        
