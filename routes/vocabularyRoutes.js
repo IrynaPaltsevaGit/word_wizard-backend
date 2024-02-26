@@ -11,8 +11,7 @@ app.use(cors());
 // getting all the word cards for the user with progress < 20
 router.get("/", authMiddleware, async (req, res) => {
     const {limit, page} = req.query;
-    const offset = page * limit - limit;
-    console.log(offset)
+    const offset = page * limit - limit;  
 
     try {
       const words = await knex("words")
@@ -58,17 +57,12 @@ router.post("/new", authMiddleware, async (req, res) => {
         .json({ error: "Some fields are empty" });
     }    
     try {
-      console.log(req.userObj)
       const [newWordId] = await knex("words").insert({
         user_id: req.userObj.id,
         word: word.toLowerCase(),
         translation: translation.toLowerCase(),
         notes
       })
-      //.join("users", "words.user_id", "=", req.userObj.id);;
-
-      console.log(newWordId);
-
       const newWord = await knex("words")
          .where("id", newWordId)
          .first();
@@ -78,7 +72,6 @@ router.post("/new", authMiddleware, async (req, res) => {
       res.status(400).send({ error: "Failed to create a new word card. ", sysError: error });
     }
   });
-
 
   // DELETE wordcard from vocabulary
 router.delete("/:id", async (req, res) => {

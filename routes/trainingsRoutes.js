@@ -11,8 +11,7 @@ app.use(cors());
 
 // getting 10 word cards for the user
 router.get("/", authMiddleware, async (req, res) => {
-    const limit = req.query.limit ?? 10;
-    console.log(limit)
+    const limit = req.query.limit ?? 10;   
     try {
      const data = await knex("words")
        .select(
@@ -35,8 +34,7 @@ router.get("/", authMiddleware, async (req, res) => {
    }
  });
 
- //update progress after training done
-
+ //updating progress after training done
  router.put("/progress", authMiddleware, async (req, res) => {
   const wordsData = req.body;  
 
